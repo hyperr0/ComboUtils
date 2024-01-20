@@ -301,16 +301,30 @@ function randomizeF() {
 }
 
 function captureRemoverF() {
+    // Giriş metnini alın
+    let inputText = input.value;
 
-    // matching email using regex
-    let match = input.value.match(/[0-9a-zA-Z_.]+@[0-9a-zA-Z_.]+:[\S]+/g);
-    if (match == null) {
+    // Telefon numarası:şifre ikililerini ve e-posta:şifre ikililerini bulmak için regex kullanın
+    let phonePasswordMatches = inputText.match(/\d{10}:\d{6}/g);
+    let emailPasswordMatches = inputText.match(/[0-9a-zA-Z_.]+@[0-9a-zA-Z_.]+:[\S]+/g);
+    let resultText = "";
+
+    if (phonePasswordMatches == null && emailPasswordMatches == null) {
         input.value = "";
-        console.log("Empty match");
-    }
-    else {
-        // join replace the , in the sting to the given character in the "".
-        input.value = match.join("\n");
+        console.log("No matches found");
+    } else {
+        // Telefon numarası:şifre ikililerini yeni satırlarla birleştirerek sonuç metnini oluşturun
+        if (phonePasswordMatches) {
+            resultText += phonePasswordMatches.join("\n");
+        }
+
+        // E-posta:şifre ikililerini yeni satırlarla birleştirerek sonuç metnini oluşturun
+        if (emailPasswordMatches) {
+            resultText += (resultText ? "\n" : "") + emailPasswordMatches.join("\n");
+        }
+
+        // Sonucu giriş alanına yazın
+        input.value = resultText;
     }
 }
 function removeDuplicatesF() {
