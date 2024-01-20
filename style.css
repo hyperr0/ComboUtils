@@ -101,7 +101,7 @@ li.vnavbar:hover{
     font-family: monospace;
     border: 2px solid rgb(189, 185, 185);
     font-size: x-large;
-    background-color: rgb(217, 11, 4);
+    background-color: rgb(13, 0, 128);
 }
 .MFradio{
     display: flex;
@@ -188,7 +188,7 @@ input[type="number"],.ptext,.MFtext{
     background-color: black;
 }
 .sactive{
-    background-color: rgb(135, 7, 7) !important;
+    background-color: rgb(13, 0, 128) !important;
     color: rgb(255, 255, 255) !important;
 }
 .displaynone{
