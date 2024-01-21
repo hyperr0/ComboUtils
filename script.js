@@ -36,8 +36,7 @@ const getDuplicate = document.querySelector('.getDuplicate');
 const comboOptimiser = document.querySelector('.comboOptimiser');
 const removeEmptylines = document.querySelector('.removeEmptylines');
 const sortLines = document.querySelector('.sortLines');
-const emailToUser = document.querySelector('.emailToUser');
-const emailToemail = document.querySelector('.emailToemail');
+const linkextractor = document.querySelector('.linkextractor');
 
 
 //event listners COMBO_FILTER
@@ -48,8 +47,7 @@ getDuplicate.addEventListener("click", getDuplicateClick);
 comboOptimiser.addEventListener("click", comboOptimiserClick);
 removeEmptylines.addEventListener("click", removeEmptylinesClick);
 sortLines.addEventListener("click", sortLinesClick);
-emailToUser.addEventListener("click", emailToUserClick);
-emailToemail.addEventListener("click", emailToemailClick);
+linkextractor.addEventListener("click", linkextractorClick);
 
 // sidebar elements PASSWORD_TOOLs
 const passOptimiser = document.querySelector('.passOptimiser')
@@ -173,11 +171,7 @@ function sortLinesClick() {
     removeAllSactive();
     setSactive(this);
 }
-function emailToUserClick() {
-    removeAllSactive();
-    setSactive(this);
-}
-function emailToemailClick() {
+function linkextractorClick() {
     removeAllSactive();
     setSactive(this);
 }
@@ -363,25 +357,23 @@ function removeEmptylinesF() {
     let result = lines.replace(regex, "");
     input.value = result;
 }
-function emailToUserF() {
-    let lines = input.value;
-    let regex = /([0-9a-zA-Z_.]+)@[0-9a-zA-Z_.]+:([\S]+)/gm;
-    let result = lines.replace(regex, "$1:$2");
-    input.value = result;
-}
-function emailToemailF() {
-    let lines = input.value;
-    let regex = /[0-9a-zA-Z_.]+@[0-9a-zA-Z_.]+/gm;
-    let match = lines.match(regex);
-    if (match == null) {
-        input.value = "";
-        console.log("Empty match");
+function linkextractorF() {
+    let inputText = input.value;
+    
+    let urlRegex = /http[s]?:\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*(),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+/g;
+
+    let urlMatches = inputText.match(urlRegex);
+
+    let resultText = "";
+
+
+    if (!urlMatches) {
+        document.getElementById('input').value = "";
+        console.log("No URLs found");
+    } else {
+        resultText = urlMatches.join("\n");
+        input.value = resultText;
     }
-    else {
-        // join replace the , in the sting to the given character in the "".
-        input.value = match.join("\n");
-    }
-    input.value = result;
 }
 function passOptimiserF() {
     let plength = document.querySelector('.plength');
@@ -736,11 +728,8 @@ function gettext() {
         case sortLines:
             sortLinesF();
             break;
-        case emailToUser:
-            emailToUserF();
-            break;
-        case emailToemail:
-            emailToemailF();
+        case linkextractor:
+            linkextractorF();
             break;
         case passOptimiser:
             passOptimiserF();
