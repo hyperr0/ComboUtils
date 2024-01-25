@@ -299,7 +299,7 @@ function captureRemoverF() {
     let inputText = input.value;
 
     // Telefon numarası:şifre ikililerini ve e-posta:şifre ikililerini bulmak için regex kullanın
-    let phonePasswordMatches = inputText.match(/\d{10}:\d{6}/g);
+    let phonePasswordMatches = inputText.match(/\d{10,11}(?::[^:\n]+)?/g);
     let emailPasswordMatches = inputText.match(/[0-9a-zA-Z_.]+@[0-9a-zA-Z_.]+:[\S]+/g);
     let resultText = "";
 
